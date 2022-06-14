@@ -18,16 +18,15 @@ const getTranslations = async () => {
     // const ws = wb.getWorksheet('Saved translations');
     const ws = wb.getWorksheet(1);
     for (let row = 2; row <= 100000; row++) {
-
         const fromLanguageCell = `A${row}`;
         const toLanguageCell = `B${row}`;
         const fromPhraseCell = `C${row}`;
         const toPhraseCell = `D${row}`;
 
-		const fromLanguage= ws.getCell(fromLanguageCell).value;
-		const toLanguage= ws.getCell(toLanguageCell).value;
-		const fromPhrase= ws.getCell(fromPhraseCell).value;
-		const toPhrase= ws.getCell(toPhraseCell).value;
+        const fromLanguage = ws.getCell(fromLanguageCell).value;
+        const toLanguage = ws.getCell(toLanguageCell).value;
+        const fromPhrase = ws.getCell(fromPhraseCell).value;
+        const toPhrase = ws.getCell(toPhraseCell).value;
         if (fromLanguage === null) {
             break;
         } else {
@@ -43,18 +42,25 @@ const getTranslations = async () => {
 };
 
 const getJobs = () => {
-	const jobFileNames = qfil.getSiteRelativePathAndFileNames('data/jobs');
+    const jobFileNames = qfil.getSiteRelativePathAndFileNames('data/jobs');
     const jobs = [];
-	jobFileNames.forEach((jobFileName) => {
+    jobFileNames.forEach((jobFileName) => {
         const fixedPathName = '\\' + qstr.replaceAll(jobFileName, '/', '\\');
         console.log(fixedPathName);
-        const lines = qfil.getFileAsLines(`${fixedPathName}`)
-        console.log(lines);
+        const lines = qfil.getFileAsLines(`${fixedPathName}`);
+        const content = qstr.convertLinesToStringBlock(lines);
+        const html = qstr.parseMarkDown(content);
+
+        let idCode = qstr.chopLeft(jobFileName, 'data/jobs/');
+        idCode = qstr.chopRight(idCode, '.md');
+
         jobs.push({
-           title: "job title"
-       }) 
-	});
-	return jobs;
+            idCode,
+            html
+        });
+    });
+    console.log(jobs)
+    return jobs;
 };
 
 export const siteData = {
