@@ -1,0 +1,2 @@
+- .. show data from translations
+	- .. first show data from flashcards and make tools
