@@ -49,6 +49,7 @@ const getJobs = () => {
         const fixedPathName = '\\' + qstr.replaceAll(jobFileName, '/', '\\');
         console.log(fixedPathName);
         const lines = qfil.getFileAsLines(`${fixedPathName}`)
+        console.log(lines);
         jobs.push({
            title: "job title"
        }) 

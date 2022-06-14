@@ -87,6 +87,7 @@ export const trimAllLinesInLinesArray = (lines) => {
 	const newLines = [];
 	lines.forEach(function (line, index) {
 		let newLine = line.trim();
+		newLine = qstr.chopRight(newLine, '\\r');
 		newLines.push(newLine);
 	});
 	return newLines;

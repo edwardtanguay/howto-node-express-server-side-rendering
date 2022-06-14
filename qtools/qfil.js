@@ -43,5 +43,5 @@ export const getContentOfFile = (pathAndFileName) => {
 
 export const getFileAsLines = (pathAndFileName) => {
     const content = qfil.getContentOfFile(pathAndFileName);
-    return qstr.convertStringBlockToLines(content, false);
+    return qstr.convertStringBlockToLines(content);
 }
