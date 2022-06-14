@@ -42,17 +42,15 @@ const getTranslations = async () => {
     return translations;
 };
 
-const getFiles = () => {
-	const rawFiles = qfil.getSiteRelativePathAndFileNames();
-	const unwantedPrefixes = ['/.git', '/node_modules'];
-	const files = rawFiles.filter((rawFile) => {
-		if (!qstr.startsWithPrefixes(rawFile, unwantedPrefixes)) {
-			return true;
-		} else {
-			return false;
-		}
+const getJobs = () => {
+	const jobFileNames = qfil.getSiteRelativePathAndFileNames('data/jobs');
+    const jobs = [];
+	jobFileNames.forEach((rawFile) => {
+        jobs.push({
+           title: "job title"
+       }) 
 	});
-	return files;
+	return jobs;
 };
 
 export const siteData = {
@@ -60,5 +58,5 @@ export const siteData = {
     nouns,
     books,
     translations: await getTranslations(),
-    files: getFiles()
+    jobs: getJobs()
 };
