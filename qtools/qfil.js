@@ -2,6 +2,7 @@ import fs from 'fs';
 import * as qstr from './qstr.js';
 import * as qfil from './qfil.js';
 import * as qsys from './qsys.js';
+import * as config from './config.js';
 import path from 'path';
 
 const __dirname = path.resolve(path.dirname(''));
@@ -34,3 +35,13 @@ export const getRelativePathAndFileName = function (absolutePathAndFileName) {
 export const convertBackSlashesToForwardSlashes = function (pathAndFileName) {
     return qstr.replaceAll(pathAndFileName, '\\', '/');
 };
+
+export const getContentOfFile = (pathAndFileName) => {
+    const fullPathAndFileName = config.getApplicationPath() + pathAndFileName;
+    return fs.readFileSync(fullPathAndFileName, 'utf8');
+}
+
+export const getFileAsLines = (pathAndFileName) => {
+    const content = qfil.getContentOfFile(pathAndFileName);
+    return qstr.convertStringBlockToLines(content, false);
+}

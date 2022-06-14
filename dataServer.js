@@ -45,7 +45,10 @@ const getTranslations = async () => {
 const getJobs = () => {
 	const jobFileNames = qfil.getSiteRelativePathAndFileNames('data/jobs');
     const jobs = [];
-	jobFileNames.forEach((rawFile) => {
+	jobFileNames.forEach((jobFileName) => {
+        const fixedPathName = '\\' + qstr.replaceAll(jobFileName, '/', '\\');
+        console.log(fixedPathName);
+        const lines = qfil.getFileAsLines(`${fixedPathName}`)
         jobs.push({
            title: "job title"
        }) 

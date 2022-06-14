@@ -57,3 +57,60 @@ export const startsWithPrefixes = (text, unwantedPrefixes) => {
 	});
 	return rb;
 };
+
+export const convertStringBlockToLines = (stringBlock, trimLines = true) => {
+	if (qstr.isEmpty(stringBlock)) {
+		return [];
+	}
+	let roughLines = stringBlock.split("\n");
+	if (trimLines) {
+		roughLines = qstr.trimAllLinesInLinesArray(roughLines);
+	}
+	roughLines = qstr.trimLinesOfEndBlanks(roughLines);
+	return roughLines;
+}
+
+export const isEmpty = (line) => {
+	if (line == undefined || line == null) {
+		return true;
+	} else {
+		line = line.toString();
+		if (line.trim() == '') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+export const trimAllLinesInLinesArray = (lines) => {
+	const newLines = [];
+	lines.forEach(function (line, index) {
+		let newLine = line.trim();
+		newLines.push(newLine);
+	});
+	return newLines;
+}
+
+export const trimLinesOfEndBlanks = (lines) => {
+	lines = qstr.trimBeginningLinesOfBlanks(lines);
+	lines = lines.reverse();
+	lines = qstr.trimBeginningLinesOfBlanks(lines);
+	lines = lines.reverse();
+	return lines;
+}
+
+export const trimBeginningLinesOfBlanks = (lines) => {
+	const newLines = [];
+	let trimmingBlanks = true;
+	lines.forEach(function (line, index) {
+		let newLine = line;
+		if (trimmingBlanks && line == "") {
+			//skip it since it is a preceding blank item
+		} else {
+			newLines.push(newLine);
+			trimmingBlanks = false;
+		}
+	});
+	return newLines;
+}
