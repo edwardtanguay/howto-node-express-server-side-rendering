@@ -1,7 +1,8 @@
 import axios from 'axios';
 import fs from 'fs';
 import Excel from 'exceljs';
-import * as qmat from './qtools/qmat.js';
+import * as qfil from './qtools/qfil.js';
+import * as qstr from './qtools/qstr.js';
 
 const wb = new Excel.Workbook();
 
@@ -41,9 +42,23 @@ const getTranslations = async () => {
     return translations;
 };
 
+const getFiles = () => {
+	const rawFiles = qfil.getSiteRelativePathAndFileNames();
+	const unwantedPrefixes = ['/.git', '/node_modules'];
+	const files = rawFiles.filter((rawFile) => {
+		if (!qstr.startsWithPrefixes(rawFile, unwantedPrefixes)) {
+			return true;
+		} else {
+			return false;
+		}
+	});
+	return files;
+};
+
 export const siteData = {
     siteTitle: 'Info Site',
     nouns,
     books,
-    translations: await getTranslations()
+    translations: await getTranslations(),
+    files: getFiles()
 };

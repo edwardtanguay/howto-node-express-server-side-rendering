@@ -1,4 +1,4 @@
-import * as qstr from './qstr.mjs';
+import * as qstr from './qstr.js';
 
 export const contains = function (line, searchText) {
 	return String(line).includes(searchText);
