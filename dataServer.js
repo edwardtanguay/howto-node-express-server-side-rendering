@@ -1,4 +1,5 @@
 import axios from 'axios';
+import fs from 'fs';
 
 const getNouns = async () => {
     const nouns = (
@@ -11,6 +12,13 @@ const getNouns = async () => {
     });
 };
 
-export const data = {
-    getNouns
+const getBooks = () => {
+    let rawdata = fs.readFileSync('./data/books.json');
+    return JSON.parse(rawdata);
+};
+
+export const siteData = {
+    siteTitle: "Info Site",
+    nouns: await getNouns(),
+    books: getBooks()
 };

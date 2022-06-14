@@ -1,14 +1,12 @@
 import express from 'express';
 import { site } from './site.js';
-import { data } from './data.js';
+import { siteData } from './dataServer.js';
 
 const app = express();
 const port = 3007;
 
-const nouns = await data.getNouns();
-
 app.get('/', (req, res) => {
-    res.send(site(nouns));
+    res.send(site(siteData));
 });
 
 app.listen(port, () => {
