@@ -1,17 +1,16 @@
 import axios from 'axios';
 
-// export const nouns = (
-//     await axios.get('https://edwardtanguay.netlify.app/share/germanNouns.json')
-// ).data;
-
 const getNouns = async () => {
+    const nouns = (
+        await axios.get(
+            'https://edwardtanguay.netlify.app/share/germanNouns.json'
+        )
+    ).data;
     return new Promise((resolve, reject) => {
-        resolve([
-            { article: 'Henri', singular: 'nnn' }
-        ]);
+        resolve(nouns);
     });
 };
 
 export const data = {
-	getNouns
+    getNouns
 };
