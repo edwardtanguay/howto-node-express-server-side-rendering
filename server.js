@@ -1,10 +1,16 @@
 import express from 'express';
+import axios from 'axios';
+import { site } from './site.js';
 
 const app = express();
 const port = 3007;
 
+const nouns = (
+    await axios.get('https://edwardtanguay.netlify.app/share/germanNouns.json')
+).data;
+
 app.get('/', (req, res) => {
-    res.send('welcome to this <b>website</b>');
+    res.send(site(nouns));
 });
 
 app.listen(port, () => {
